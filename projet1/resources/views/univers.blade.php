@@ -23,7 +23,7 @@ univers
         <td><div class="border border-solid border-black p-4 rounded-lg w-50 m-auto" style="background-color: {{ $univers->couleur_principale }}"></div></td>
         <td><div class="border border-solid border-black p-4 rounded-lg w-50 m-auto" style="background-color: {{ $univers->couleur_secondaire }}"></div></td>
         <td><a class="py-2 px-4 bg-green-500 rounded-lg border border-black hover:bg-green-300 transition-colors duration-300" href="{{ route('user.edit', $univers->id) }}">Modifier</a>
-        <form action="{{ route('user.destroy', $univers->id) }}"><input type="submit" class="py-2 px-4 bg-red-500 rounded-lg border border-black m-3 hover:bg-red-300 transition-colors duration-300" value="Supprimer"></form>
+        <form action="{{ route('user.destroy', $univers->id) }}" method="POST"> @csrf @method('DELETE') <input type="submit" class="py-2 px-4 bg-red-500 rounded-lg border border-black m-3 hover:bg-red-300 transition-colors duration-300" value="Supprimer"></form>
     </tr>
      @endforeach
 </table>

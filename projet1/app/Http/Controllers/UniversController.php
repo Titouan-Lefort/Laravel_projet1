@@ -110,7 +110,7 @@ class UniversController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
         $univers = Univers::findOrFail($id);
         $univers->delete();
