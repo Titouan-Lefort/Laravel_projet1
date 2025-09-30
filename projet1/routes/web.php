@@ -13,8 +13,6 @@ Route::resource('user', UniversController::class);
 
 Route::get('/', [UniversController::class, 'index']);
 
-Route::post('create', [UniversController::class, 'create']);
-
 // Route::post('{id}/edit', [UniversController::class, 'edit']);
 // Route::post('user/{id}', [UniversController::class, 'update']);
 

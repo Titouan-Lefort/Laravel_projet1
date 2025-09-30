@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Univers;
 use Illuminate\Http\Request;
+use App\Http\Requests\UniversRequest;
 
 class UniversController extends Controller
 {
@@ -28,19 +29,8 @@ class UniversController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UniversRequest $request)
     {
-        $validate = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'image' => 'required',
-            'logo' => 'required',
-            'couleur_principale' => 'required',
-            'couleur_secondaire' => 'required',
-        ]);
-
-
-
 
             $validate['image'] = $request->file('image')->store('univers', 'public');
             $validate['logo'] = $request->file('logo')->store('univers', 'public');
@@ -70,37 +60,31 @@ class UniversController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(UniversRequest $request, $id)
     {
         $univers = Univers::findOrFail($id);
-          $validate = $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'couleur_principale' => 'required',
-            'couleur_secondaire' => 'required',
-        ]);
-
+        $donnes = $request->validated();
 
             if($request->hasFile('image')){
-                $validate['image'] = $request->file('image')->store('univers', 'public');
+                $donnes['image'] = $request->file('image')->store('univers', 'public');
             }
             else{
-                $validate['image'] = $univers->image;
+                $donnes['image'] = $univers->image;
             }
             if($request->hasFile('logo')){
-                $validate['logo'] = $request->file('logo')->store('univers', 'public');
+                $donnes['logo'] = $request->file('logo')->store('univers', 'public');
             }
             else{
-                $validate['logo'] = $univers->logo;
+                $donnes['logo'] = $univers->logo;
             }
 
         $univers->update([
-            'name' => $validate["name"],
-            'description' => $validate['description'],
-            'image' => $validate['image'],
-            'logo' => $validate['logo'],
-            'couleur_principale' => $validate['couleur_principale'],
-            'couleur_secondaire' => $validate['couleur_secondaire'],
+            'name' => $donnes["name"],
+            'description' => $donnes['description'],
+            'image' => $donnes['image'],
+            'logo' => $donnes['logo'],
+            'couleur_principale' => $donnes['couleur_principale'],
+            'couleur_secondaire' => $donnes['couleur_secondaire'],
         ]);
 
         return redirect('/');
