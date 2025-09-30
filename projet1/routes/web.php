@@ -1,17 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AccueilController;
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\UniversController;
+use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 // Route::get('{a}/{b?}', function (string $a, string $b = 'ok'){
 //     return "je suis sur la page $b depuis la page $a";
 // })->where(['a' => '[a-zA-Z]+']);
 
-Route::get('page/{message?}', [AccueilController::class, 'page']);
+Route::resource('user', UniversController::class);
 
-Route::resource('TestController', TestController::class);
+Route::get('/', [UniversController::class, 'index']);
+
+Route::post('create', [UniversController::class, 'create']);
+
+// Route::post('{id}/edit', [UniversController::class, 'edit']);
+// Route::post('user/{id}', [UniversController::class, 'update']);
+
+
