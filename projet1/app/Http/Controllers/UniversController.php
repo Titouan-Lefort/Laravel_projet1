@@ -23,7 +23,7 @@ class UniversController extends Controller
     public function create()
     {
 
-        return view('create');
+        return view('edit', ['univers' => null]);
     }
 
     /**
@@ -31,11 +31,12 @@ class UniversController extends Controller
      */
     public function store(UniversRequest $request)
     {
+            $donnes = $request->validated();
 
-            $validate['image'] = $request->file('image')->store('univers', 'public');
-            $validate['logo'] = $request->file('logo')->store('univers', 'public');
+            $donnes['image'] = $request->file('image')->store('univers', 'public');
+            $donnes['logo'] = $request->file('logo')->store('univers', 'public');
+            $univers = Univers::create($donnes);
 
-            $univers = Univers::create($validate);
 
         return redirect('/');
     }

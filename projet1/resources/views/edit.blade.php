@@ -4,22 +4,30 @@
 connection
 @endsection
 @section('content')
-<form action="{{ route('user.update', $univers->id) }}" method="post"  enctype="multipart/form-data">
-    @csrf
-    @method('put')
-    <input type="text" name="name" placeholder="Nom" value="{{ $univers->name }}" class="border border-solid p-2 border-black rounded-lg m-4">
-    <br>
-    <input type="textarea" name="description" placeholder="Description" value="{{ $univers->description }}" class="border border-solid p-2 border-black rounded-lg m-4">
-    <p class="text-white bg-black p-2 ">Image</p>
-    <input type="file" name="image">
-    <img src="{{ asset('storage/'.$univers->image) }}" alt="" class="w-30 h-30 object-cover m-4    ">
-    <p class="text-white bg-black p-2">logo</p>
-    <input type="file" name="logo" value="{{ $univers->logo }}">
-    <img src="{{ asset('storage/'.$univers->logo) }}" alt="" class="w-30 h-30 object-cover m-4 ">
-    <p>couleur principale</p>
-    <input type="color" name="couleur_principale" placeholder="Couleur principale" value="{{ $univers->couleur_principale }}">
-    <p>couleur secondaire</p>
-    <input type="color" name="couleur_secondaire" placeholder="couleur secondaire" value="{{ $univers->couleur_secondaire }}">
-    <input type="submit" value="Modifier" class="p-4 bg-black text-white">
-</form>
+    <form action="{{$univers ? route('user.update', $univers->id) : route('user.store')}}" method="post"  enctype="multipart/form-data">
+        @csrf
+        @if($univers)
+            @method('PUT')
+        @endif
+        <x-input-text name="name" place="Nom" value="{{ $univers->name ?? ''}}"/>
+        <br>
+        <textarea name="description" placeholder="Description" class="border border-solid p-2 border-black rounded-lg m-4">{{ $univers->description ?? '' }}</textarea>
+        <p class="text-white bg-black p-2 ">Image</p>
+        <input type="file" name="image">
+        @if($univers)
+            <x-img src="{{ asset('storage/'.$univers->image) }}"/>
+        @endif
+        <p class="text-white bg-black p-2">logo</p>
+        <input type="file" name="logo">
+        @if($univers)
+            <x-img src="{{ asset('storage/'.$univers->logo) }}"/>
+        @endif
+        <p>couleur principale</p>
+        <x-input-color name="couleur_principale" value="{{ $univers->couleur_principale ?? ''}}"/>
+        <p>couleur secondaire</p>
+        <x-input-color name="couleur_secondaire" value="{{ $univers->couleur_secondaire ?? ''}}"/>
+
+        <input type="submit" value="{{ $univers ? 'Modifier' : 'Créer' }}" class="p-4 bg-black text-white">
+
+    </form>
 @endsection
