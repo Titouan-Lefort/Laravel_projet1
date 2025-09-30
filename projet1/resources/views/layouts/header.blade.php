@@ -10,7 +10,14 @@
 <header>
 <nav class="navbar rounded-box shadow-base-300/20 shadow-sm p-4 bg-amber-100">
     <a href="{{ url('/') }}" class="p-2 bg-black text-white rounded-lg">Menu</a>
-    <a href="{{ route('user.create') }}" class="p-2 bg-black text-white rounded-lg">Inscription</a>
+    @if (Auth::check())
+        <a href="{{ route('user.create') }}" class="p-2 bg-black text-white rounded-lg">Création d'univers</a>
+    @endif
+    @if (!Auth::check())
+        <a href="{{ route('login') }}" class="p-2 bg-black text-white rounded-lg">Connection</a>
+        <a href="{{ route('register') }}" class="p-2 bg-black text-white rounded-lg">S'inscrire</a>
+    @endif
+
 </nav>
 </header>
 <body>

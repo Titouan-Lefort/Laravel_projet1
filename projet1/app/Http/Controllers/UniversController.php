@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
+
 
 use App\Models\Univers;
 use Illuminate\Http\Request;
@@ -22,7 +24,10 @@ class UniversController extends Controller
      */
     public function create()
     {
-
+        if(!Auth::check()){
+            $liste = Univers::all();
+            return view('univers', compact('liste'));
+        }
         return view('edit', ['univers' => null]);
     }
 
