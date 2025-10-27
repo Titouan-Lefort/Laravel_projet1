@@ -11,7 +11,9 @@
 <nav class="flex items-center justify-between p-4 bg-gray-500 shadow-sm rounded-box shadow-base-300/20"">
     <a href="{{ url('/') }}" class="p-2 text-white bg-black rounded-lg">Menu</a>
     @if (Auth::check())
-         <a href="{{ route('user.create') }}" class="p-2 text-white bg-black rounded-lg">Création d'univers</a>
+        @can('create-univers')
+            <a href="{{ route('user.create') }}" class="p-2 text-white bg-black rounded-lg">Création d'univers</a>
+        @endcan
         <a href="{{ route('dashboard') }}" class="p-2 text-white bg-black rounded-lg">Dashboard</a>
             <div class="hidden sm:flex sm:items-center sm:ms-6 ">
                 <x-dropdown align="right" width="48">
