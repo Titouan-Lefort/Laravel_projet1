@@ -18,7 +18,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
 Route::resource('user', UniversController::class);
+
 Route::get('/', [UniversController::class, 'index']);
+
 
 require __DIR__.'/auth.php';

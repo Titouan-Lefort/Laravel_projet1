@@ -7,12 +7,21 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Univers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UniversRequest;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\middleware;
 
-class UniversController extends Controller
+
+class UniversController extends Controller implements HasMiddleware
 {
     /**
      * Display a listing of the resource.
      */
+
+    public static function middleware()
+    {
+        return[new Middleware('status', ['destroy'])];
+    }
+
     public function index()
     {
         $liste = Univers::all();

@@ -10,7 +10,7 @@
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="overflow-hidden bg-black shadow-sm black sm:rounded-lg">
                 <div class="p-6 white dark:text-gray-100">
-                    {{ __("You're logged in!") }}
+                    {{ __("Vous êtes connecté !") }}
                 </div>
             </div>
         </div>
