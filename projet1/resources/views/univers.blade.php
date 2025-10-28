@@ -30,10 +30,10 @@ univers
         @if (Auth::check())
             <td><img src="{{ asset($univers->favoritedBy->contains(Auth::id()) ? 'icons/starcolor.png' : 'icons/star.png') }}"data-id="{{ $univers->id }}"class="w-8 h-8 mx-auto cursor-pointer favorite"alt="Favori"></td>
         @can('modif-univers')
-            <td><a class="px-4 py-2 transition-colors duration-300 bg-green-500 border border-black rounded-lg hover:bg-green-300" href="{{ route('user.edit', $univers->id) }}">Modifier</a>
+            <td><a class="px-4 py-2 transition-colors duration-300 bg-green-500 border border-black rounded-lg hover:bg-green-300" href="{{ route('user.edit', $univers->id) }}">{{ __("Edit") }}</a>
         @endcan
         @can('supp-univers')
-            <form action="{{ route('user.destroy', $univers->id) }}" method="POST"> @csrf @method('DELETE') <input type="submit" class="px-4 py-2 m-3 transition-colors duration-300 bg-red-500 border border-black rounded-lg hover:bg-red-300" value="Supprimer"></form>
+            <form action="{{ route('user.destroy', $univers->id) }}" method="POST"> @csrf @method('DELETE') <input type="submit" class="px-4 py-2 m-3 transition-colors duration-300 bg-red-500 border border-black rounded-lg hover:bg-red-300" value="{{ __("Delete") }}"></form>
         @endcan
         @endif
     @empty

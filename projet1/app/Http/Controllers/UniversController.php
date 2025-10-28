@@ -107,7 +107,7 @@ class UniversController extends Controller implements HasMiddleware
 
     }
 
-            public function sendMail()
+    public function sendMail()
     {
         $user = (object) ['name' => 'Titouan Lefort', 'email' => 'titouan@universworld.com'];
 
