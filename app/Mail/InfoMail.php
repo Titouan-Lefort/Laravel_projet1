@@ -3,61 +3,45 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\View\View;
-
+use App\Models\Univers;
 
 class InfoMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * Create a new message instance.
-     */
-    public $user;
+    public object $user;
+    public ?Univers $univers;
 
-    public function __construct($user)
+    public function __construct(object $user, ?Univers $univers = null)
     {
         $this->user = $user;
+        $this->univers = $univers;
     }
 
-    /**
-     * Get the message envelope.
-     */
     public function envelope(): Envelope
     {
-        return new Envelope(
-            subject: 'Info Mail',
-        );
+        return new Envelope(subject: 'Info Mail');
     }
 
-    /**
-     * Get the message content definition.
-     */
     public function content(): Content
     {
         return new Content(
-            view: 'email.test',
+            view: 'emails.test',
+            with: ['user' => $this->user, 'univers' => $this->univers]
         );
     }
 
     /**
-     * Get the attachments for the message.
+     * Attachments to be sent with the mailable.
      *
      * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
     public function attachments(): array
     {
         return [];
-    }
-
-        public function build()
-    {
-        return $this->subject('Bienvenue sur notre site')
-                    ->view('emails.test');
     }
 }

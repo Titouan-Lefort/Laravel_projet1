@@ -2,19 +2,16 @@
 
 namespace Database\Factories;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Univers;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
 class UniversFactory extends Factory
 {
-
-
-
     protected $model = Univers::class;
+
     public function definition(): array
     {
         return [

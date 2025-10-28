@@ -1,31 +1,41 @@
 <?php
-namespace App\Repositories;
-
 use App\Models\Univers;
-use Cache;
 
-Class TestRepository
+class TestRepository
 {
+    protected Univers $test;
 
-    protected $test;
     public function __construct(Univers $test)
     {
         $this->test = $test;
     }
 
-    private function save (Univers $test, array $inputs)
+    /**
+     * @param Univers $test
+     * @param array<string, mixed> $inputs
+     */
+    private function save(Univers $test, array $inputs): Univers
     {
+        $test->fill($inputs);
         $test->save();
+
         return $test;
     }
 
-    public function store(array $inputs)
+    /**
+     * @param array<string, mixed> $inputs
+     */
+    public function store(array $inputs): Univers
     {
         $test = new $this->test;
         return $this->save($test, $inputs);
     }
 
-    public function update (Univers $test, array $inputs)
+    /**
+     * @param Univers $test
+     * @param array<string, mixed> $inputs
+     */
+    public function update(Univers $test, array $inputs): Univers
     {
         return $this->save($test, $inputs);
     }

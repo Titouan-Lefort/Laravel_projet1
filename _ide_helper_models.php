@@ -26,6 +26,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Favorite whereUniversId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Favorite whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Favorite whereUserId($value)
+ * @mixin \Eloquent
  */
 	class Favorite extends \Eloquent {}
 }
@@ -58,6 +59,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Univers whereLogo($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Univers whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Univers whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class Univers extends \Eloquent {}
 }
@@ -97,7 +99,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
-	class User extends \Eloquent {}
+	class User extends \Eloquent implements \Illuminate\Contracts\Auth\MustVerifyEmail {}
 }
 
