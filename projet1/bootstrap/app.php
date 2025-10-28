@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\TestAdmin;
+use App\Http\Middleware\TestLang;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -16,6 +17,10 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withMiddleware(function (Middleware $middleware){
         $middleware->alias(['status'=>TestAdmin::class]);
+    })
+
+    ->withMiddleware(function (Middleware $middleware){
+        $middleware->alias(['lang'=>TestLang::class]);
     })
 
     ->withExceptions(function (Exceptions $exceptions) {

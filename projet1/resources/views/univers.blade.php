@@ -6,15 +6,15 @@ univers
 @section("content")
 <table class="w-full p-4 text-center border-collapse table-auto">
     <tr class="border border-gray-300">
-        <th class="py-4">Nom</th>
-        <th>Description</th>
-        <th>Image</th>
-        <th>Logo</th>
-        <th>Couleur principale</th>
-        <th>Couleur secondaire</th>
+        <th class="py-4">{{__('Name')}}</th>
+        <th>{{ __('Description') }}</th>
+        <th>{{ __('Image') }}</th>
+        <th>{{ __('Logo') }}</th>
+        <th>{{ __('Principal color') }}</th>
+        <th>{{ __('Secondary color') }}</th>
         @if (Auth::check())
             @can('supp-univers' ?? 'modif-univers')
-                <th>Actions</th>
+                <th>{{ __('Actions') }}</th>
             @endcan
         @endif
     </tr>
@@ -35,7 +35,7 @@ univers
         @endcan
         @endif
     @empty
-        <td class="my-4 text-xl">Aucun univers existes</td>
+        <td class="my-4 text-xl">{{ __('No universe exists') }}</td>
     </tr>
      @endforelse
 </table>

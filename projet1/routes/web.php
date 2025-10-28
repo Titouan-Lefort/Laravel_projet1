@@ -10,7 +10,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'lang'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -19,9 +19,22 @@ Route::middleware('auth')->group(function () {
 });
 
 
-Route::resource('user', UniversController::class);
+Route::resource('user', UniversController::class)->middleware('lang');
 
-Route::get('/', [UniversController::class, 'index']);
+Route::get('/', [UniversController::class, 'index'])->middleware('lang');
+
+    Route::get('/lang/{locale}', function ($locale) {
+    if (! in_array($locale, ['en', 'fr'])) {
+        abort(400, 'Langue non supportée');
+    }
+    Session::put('locale', $locale);
+    return redirect()->back();
+    app::setLocale($locale);
+})->name('lang');
+
+
+Route::get('/send-mail', [App\Http\Controllers\MailController::class, 'sendMail']);
+
 
 
 require __DIR__.'/auth.php';

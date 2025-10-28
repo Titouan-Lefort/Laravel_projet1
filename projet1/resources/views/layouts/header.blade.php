@@ -12,10 +12,17 @@
     <a href="{{ url('/') }}" class="p-2 text-white bg-black rounded-lg">Menu</a>
     @if (Auth::check())
         @can('create-univers')
-            <a href="{{ route('user.create') }}" class="p-2 text-white bg-black rounded-lg">Création d'univers</a>
+            <a href="{{ route('user.create') }}" class="p-2 text-white bg-black rounded-lg">{{ __("Universe creation") }}</a>
         @endcan
         <a href="{{ route('dashboard') }}" class="p-2 text-white bg-black rounded-lg">Dashboard</a>
-            <div class="hidden sm:flex sm:items-center sm:ms-6 ">
+        <form action="{{ route('lang', app()->getLocale()) }}" method="get" id="langForm">
+            <select name="lang" onchange="window.location.href='/lang/' + this.value;" class="text-white bg-black rounded_lg">
+                <option value="fr" {{ app()->getLocale() == 'fr' ? 'selected' : '' }}>Français</option>
+                <option value="en" {{ app()->getLocale() == 'en' ? 'selected' : '' }}>English</option>
+            </select>
+        </form>
+
+             <div class="hidden sm:flex sm:items-center sm:ms-6 ">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-black border border-transparent rounded-md dark:text-white dark:bg-black hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none">
@@ -41,7 +48,7 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Déconnexion') }}
+                                {{ __('Logout') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -50,8 +57,8 @@
 
     @endif
     @if (!Auth::check())
-        <a href="{{ route('login') }}" class="p-2 text-white bg-black rounded-lg">Connection</a>
-        <a href="{{ route('register') }}" class="p-2 text-white bg-black rounded-lg">S'inscrire</a>
+        <a href="{{ route('login') }}" class="p-2 text-white bg-black rounded-lg">{{ __('Log in') }}</a>
+        <a href="{{ route('register') }}" class="p-2 text-white bg-black rounded-lg">{{ __('Register') }}</a>
     @endif
 
 </nav>

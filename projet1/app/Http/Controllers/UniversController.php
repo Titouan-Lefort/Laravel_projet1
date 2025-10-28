@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UniversRequest;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\middleware;
+use App\Mail\InfoMail;
+use Illuminate\Support\Facades\Mail;
 
 
 class UniversController extends Controller implements HasMiddleware
@@ -52,8 +54,7 @@ class UniversController extends Controller implements HasMiddleware
             $univers = Univers::create($donnes);
 
 
-        return redirect('/');
-    }
+            return $this->sendMail();    }
 
     /**
      * Display the specified resource.
@@ -102,8 +103,17 @@ class UniversController extends Controller implements HasMiddleware
             'couleur_secondaire' => $donnes['couleur_secondaire'],
         ]);
 
-        return redirect('/');
+        return $this->sendMail();
 
+    }
+
+            public function sendMail()
+    {
+        $user = (object) ['name' => 'Titouan Lefort', 'email' => 'titouan@universworld.com'];
+
+        Mail::to($user->email)->send(new InfoMail($user));
+
+        return redirect('/');
     }
 
     /**

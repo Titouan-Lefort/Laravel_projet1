@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Univers;
+use Cache;
 
 Class TestRepository
 {
