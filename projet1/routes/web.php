@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UniversController;
+use App\Http\Controllers\FavoriteController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,6 +36,8 @@ Route::get('/', [UniversController::class, 'index'])->middleware('lang');
 
 Route::get('/send-mail', [App\Http\Controllers\MailController::class, 'sendMail']);
 
-
+Route::post('/favorites/toggle', [FavoriteController::class, 'toggle'])
+    ->name('favorites.toggle')
+    ->middleware('auth');
 
 require __DIR__.'/auth.php';

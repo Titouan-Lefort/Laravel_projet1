@@ -14,6 +14,25 @@
 namespace App\Models{
 /**
  * @property int $id
+ * @property int $user_id
+ * @property int $univers_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Favorite newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Favorite newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Favorite query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Favorite whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Favorite whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Favorite whereUniversId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Favorite whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Favorite whereUserId($value)
+ */
+	class Favorite extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
  * @property string $name
  * @property string $description
  * @property string $image
@@ -22,6 +41,8 @@ namespace App\Models{
  * @property string $couleur_secondaire
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $favoritedBy
+ * @property-read int|null $favorited_by_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @method static \Database\Factories\UniversFactory factory($count = null, $state = [])
@@ -54,6 +75,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Silber\Bouncer\Database\Ability> $abilities
  * @property-read int|null $abilities_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Univers> $favorites
+ * @property-read int|null $favorites_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Silber\Bouncer\Database\Role> $roles

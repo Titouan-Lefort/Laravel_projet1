@@ -13,6 +13,7 @@ univers
         <th>{{ __('Principal color') }}</th>
         <th>{{ __('Secondary color') }}</th>
         @if (Auth::check())
+            <th>{{ __('Favorites') }}</th>
             @can('supp-univers' ?? 'modif-univers')
                 <th>{{ __('Actions') }}</th>
             @endcan
@@ -27,6 +28,7 @@ univers
         <td><div class="w-20 p-4 m-auto border border-black border-solid rounded-lg" style="background-color: {{ $univers->couleur_principale }}"></div></td>
         <td><div class="w-20 p-4 m-auto border border-black border-solid rounded-lg" style="background-color: {{ $univers->couleur_secondaire }}"></div></td>
         @if (Auth::check())
+            <td><img src="{{ asset($univers->favoritedBy->contains(Auth::id()) ? 'icons/starcolor.png' : 'icons/star.png') }}"data-id="{{ $univers->id }}"class="w-8 h-8 mx-auto cursor-pointer favorite"alt="Favori"></td>
         @can('modif-univers')
             <td><a class="px-4 py-2 transition-colors duration-300 bg-green-500 border border-black rounded-lg hover:bg-green-300" href="{{ route('user.edit', $univers->id) }}">Modifier</a>
         @endcan
@@ -39,4 +41,30 @@ univers
     </tr>
      @endforelse
 </table>
+  <script>
+    document.querySelectorAll('.favorite').forEach(img => {
+        img.addEventListener('click', function() {
+            const universId = this.dataset.id;
+            const imgEl = this;
+
+            fetch("{{ route('favorites.toggle') }}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ univers_id: universId })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'added') {
+                    imgEl.src = "{{ asset('icons/starcolor.png') }}";
+                } else {
+                    imgEl.src = "{{ asset('icons/star.png') }}";
+                }
+            })
+            .catch(err => console.error(err));
+        });
+    });
+  </script>
 @endsection

@@ -48,6 +48,10 @@ class User extends Authenticatable
     }
 
     use HasRolesAndAbilities;
+    public function favorites()
+    {
+    return $this->belongsToMany(Univers::class, 'favorites');
+    }
 
 
 }

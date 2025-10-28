@@ -19,4 +19,9 @@ class Univers extends Model
         'couleur_principale',
         'couleur_secondaire',
     ];
+
+    public function favoritedBy()
+    {
+    return $this->belongsToMany(User::class, 'favorites');
+    }
 }
