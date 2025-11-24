@@ -1,3 +1,83 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+	-----------------------------
+	Design system / components
+	- This file defines a small, coherent set of utility components built on Tailwind.
+	- Use semantic classes in Blade views: .btn, .btn-primary, .card, .input, .label, .nav-link
+	- Keep components small and composable. Prefer Tailwind utilities in views for page-specific tweaks.
+	-----------------------------
+*/
+
+@layer base {
+    /* Base typography and body background tuned to project */
+    html,
+    body {
+        @apply bg-white text-gray-800 antialiased;
+    }
+
+    /* Headings */
+    h1 {
+        @apply text-3xl font-semibold tracking-tight;
+    }
+    h2 {
+        @apply text-2xl font-semibold tracking-tight;
+    }
+    h3 {
+        @apply text-xl font-medium;
+    }
+
+    /* Form labels default */
+    label {
+        @apply text-sm font-medium text-gray-700;
+    }
+}
+
+@layer components {
+    /* Buttons: semantic classes make templates easier to read */
+    .btn {
+        @apply inline-flex items-center px-4 py-2 border border-transparent rounded-md text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2;
+    }
+
+    .btn-primary {
+        @apply btn bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500;
+    }
+
+    .btn-secondary {
+        @apply btn bg-white text-gray-700 border-gray-300 hover:bg-gray-50 focus:ring-indigo-500;
+    }
+
+    /* Card container */
+    .card {
+        @apply bg-white shadow-sm rounded-lg p-4;
+    }
+
+    /* Form inputs */
+    .input {
+        @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm;
+    }
+
+    /* Simple label helper */
+    .label {
+        @apply block text-sm font-medium text-gray-700 mb-1;
+    }
+
+    /* Navigation link style */
+    .nav-link {
+        @apply inline-flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100;
+    }
+
+    /* Small utility components */
+    .muted {
+        @apply text-sm text-gray-500;
+    }
+}
+
+/*
+	Notes for developers:
+	- Prefer using Tailwind utility classes directly in views for one-off layouts.
+	- Use the semantic component classes above for repeated UI elements to keep markup consistent.
+	- If you need a new component, add it under @layer components with a short comment explaining its intent.
+*/

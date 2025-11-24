@@ -2,4 +2,6 @@
 
 namespace App\Http\Controllers;
 
-class LangController extends Controller {}
+class LangController extends Controller
+{
+}

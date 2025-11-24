@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UniversRequest;
 use App\Mail\InfoMail;
 use App\Models\Univers;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
-use Illuminate\Http\RedirectResponse;
-
 
 class UniversController extends Controller implements HasMiddleware
 {
@@ -23,7 +22,7 @@ class UniversController extends Controller implements HasMiddleware
         return [new Middleware('status', ['destroy'])];
     }
 
-    public function index():view
+    public function index(): view
     {
         $liste = Univers::all();
 
@@ -33,7 +32,7 @@ class UniversController extends Controller implements HasMiddleware
     /**
      * Show the form for creating a new resource.
      */
-    public function create():view
+    public function create(): view
     {
         if (! Auth::check()) {
             $liste = Univers::all();
@@ -61,15 +60,14 @@ class UniversController extends Controller implements HasMiddleware
     /**
      * Display the specified resource.
      */
-    public function show(univers $univers):void
+    public function show(univers $univers): void
     {
-        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(int $id):view
+    public function edit(int $id): view
     {
         $univers = Univers::findOrfail($id);
 
@@ -105,7 +103,6 @@ class UniversController extends Controller implements HasMiddleware
         ]);
 
         return $this->sendMail();
-
     }
 
     public function sendMail(): RedirectResponse

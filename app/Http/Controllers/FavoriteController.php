@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Favorite;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
@@ -22,13 +22,12 @@ class FavoriteController extends Controller
             $favorite->delete();
 
             return response()->json(['status' => 'removed']);
-        } else {
-            Favorite::create([
-                'user_id' => $userId,
-                'univers_id' => $universId,
-            ]);
-
-            return response()->json(['status' => 'added']);
         }
+        Favorite::create([
+            'user_id' => $userId,
+            'univers_id' => $universId,
+        ]);
+
+        return response()->json(['status' => 'added']);
     }
 }

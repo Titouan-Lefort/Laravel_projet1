@@ -3,12 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Silber\Bouncer\Database\HasRolesAndAbilities;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @property int $id
@@ -20,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Silber\Bouncer\Database\Ability> $abilities
  * @property-read int|null $abilities_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Univers> $favorites
@@ -53,6 +53,8 @@ class User extends Authenticatable implements MustVerifyEmail
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    use HasRolesAndAbilities;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -75,27 +77,22 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
-
-    use HasRolesAndAbilities;
-
-    /**
      * Les univers favoris de l'utilisateur.
      *
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<\App\Models\Univers, $this, \Illuminate\Database\Eloquent\Relations\Pivot, 'pivot'>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<\App\Models\Univers, $this, \Illuminate\Database\Eloquent\Relations\Pivot, 'pivot'>
      */
     public function favorites()
     {
         return $this->belongsToMany(Univers::class, 'favorites');
     }
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 }

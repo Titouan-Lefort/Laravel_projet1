@@ -5,9 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
  * @property int $id
@@ -19,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @property string $couleur_secondaire
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $favoritedBy
  * @property-read int|null $favorited_by_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
@@ -57,7 +55,7 @@ class Univers extends Model
     /**
      * Les utilisateurs qui ont mis cet univers en favori.
      *
-    * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<\App\Models\User, $this, \Illuminate\Database\Eloquent\Relations\Pivot, 'pivot'>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<\App\Models\User, $this, \Illuminate\Database\Eloquent\Relations\Pivot, 'pivot'>
      */
     public function favoritedBy()
     {
